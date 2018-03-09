@@ -43,16 +43,16 @@ class MainActivity : AppCompatActivity() {
         for(i in 1..20) {
             doAsync {
                 val result = "https://pokeapi.co/api/v2/pokemon/$i"
-                val pokemonClient = OkHttpClient()
-                val pokemonRequest = Request.Builder().url(result).build()
-                pokemonClient.newCall(pokemonRequest).enqueue(object : Callback {
+                val Client = OkHttpClient()
+                val Request = Request.Builder().url(result).build()
+                Client.newCall(Request).enqueue(object : Callback {
                     override fun onResponse(call: Call?, response: Response?) {
-                        val pokemonBody = response?.body()?.string()
-                        val pokemonGson = GsonBuilder().create()
-                        val pokemonFeed = pokemonGson.fromJson(pokemonBody, Pokemon::class.java)
+                        val Body = response?.body()?.string()
+                        val Gson = GsonBuilder().create()
+                        val Feed = Gson.fromJson(Body, Pokemon::class.java)
 
                         uiThread {
-                            pokemon.add(Pokemon(pokemonFeed.name, pokemonFeed.sprites))
+                            pokemon.add(Pokemon(Feed.name, Feed.sprites))
                             val adapter = PokemonAdapter(pokemon)
                             RecyclerView!!.adapter = adapter
 
